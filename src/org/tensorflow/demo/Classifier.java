@@ -14,7 +14,7 @@ limitations under the License.
 ==============================================================================*/
 
 package org.tensorflow.demo;
-//test commit
+//test commit 19h15
 import android.graphics.Bitmap;
 import android.graphics.RectF;
 import java.util.List;
