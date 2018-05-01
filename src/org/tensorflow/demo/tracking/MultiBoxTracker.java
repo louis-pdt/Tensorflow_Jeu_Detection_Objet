@@ -32,6 +32,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import org.tensorflow.demo.Classifier.Recognition;
+import org.tensorflow.demo.RecognizeCommands;
 import org.tensorflow.demo.env.BorderedText;
 import org.tensorflow.demo.env.ImageUtils;
 import org.tensorflow.demo.env.Logger;

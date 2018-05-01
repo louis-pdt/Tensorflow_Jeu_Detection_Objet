@@ -18,6 +18,9 @@ package org.tensorflow.demo;
 
 import android.util.Log;
 import android.util.Pair;
+
+import org.tensorflow.demo.env.Logger;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +36,7 @@ public class RecognizeCommands {
   private int suppressionMs;
   private int minimumCount;
   private long minimumTimeBetweenSamplesMs;
+  private final Logger logger = new Logger();
 
   // Working variables.
   private Deque<Pair<Long, float[]>> previousResults = new ArrayDeque<Pair<Long, float[]>>();
@@ -181,6 +185,7 @@ public class RecognizeCommands {
     } else {
       isNewCommand = false;
     }
+    logger.i("Label %s detected",currentTopLabel);
     return new RecognitionResult(currentTopLabel, currentTopScore, isNewCommand);
   }
 }
