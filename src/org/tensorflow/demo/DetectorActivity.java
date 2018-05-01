@@ -66,12 +66,16 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
       "file:///android_asset/ssd_mobilenet_v1_android_export.pb";
   private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/coco_labels_list.txt";
 
+  private boolean louis = false;
+
+  private static final String TF_OD_API_MODEL_FILE_L = "file:///android_asset/frozen_inference_graph_faster_rcnn.pb";
+  private static final String TF_OD_API_LABELS_FILE_L = "file:///android_asset/coco_labels_list_rcnn.txt";
   // Configuration values for tiny-yolo-voc. Note that the graph is not included with TensorFlow and
   // must be manually placed in the assets/ directory by the user.
   // Graphs and models downloaded from http://pjreddie.com/darknet/yolo/ may be converted e.g. via
   // DarkFlow (https://github.com/thtrieu/darkflow). Sample command:
   // ./flow --model cfg/tiny-yolo-voc.cfg --load bin/tiny-yolo-voc.weights --savepb --verbalise
-  private static final String YOLO_MODEL_FILE = "file:///android_asset/graph-tiny-yolo-voc.pb";
+  private static final String YOLO_MODEL_FILE = "file:///android_asset/graph-tiny-yolov2-voc.pb";
   private static final int YOLO_INPUT_SIZE = 416;
   private static final String YOLO_INPUT_NAME = "input";
   private static final String YOLO_OUTPUT_NAMES = "output";
@@ -83,12 +87,12 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   private enum DetectorMode {
     TF_OD_API, MULTIBOX, YOLO;
   }
-  private static final DetectorMode MODE = DetectorMode.TF_OD_API;
+  private static final DetectorMode MODE = DetectorMode.YOLO;
 
   // Minimum detection confidence to track a detection.
   private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.6f;
   private static final float MINIMUM_CONFIDENCE_MULTIBOX = 0.1f;
-  private static final float MINIMUM_CONFIDENCE_YOLO = 0.25f;
+  private static final float MINIMUM_CONFIDENCE_YOLO = 0.6f;
 
   private static final boolean MAINTAIN_ASPECT = MODE == DetectorMode.YOLO;
 
@@ -152,7 +156,21 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
               MB_OUTPUT_SCORES_NAME);
       cropSize = MB_INPUT_SIZE;
     } else {
-      try {
+      if (louis == true){
+        try {
+          detector = TensorFlowObjectDetectionAPIModel.create(
+                  getAssets(), TF_OD_API_MODEL_FILE_L, TF_OD_API_LABELS_FILE_L, TF_OD_API_INPUT_SIZE);
+          cropSize = TF_OD_API_INPUT_SIZE;
+        } catch (final IOException e) {
+          LOGGER.e("Exception initializing classifier!", e);
+          Toast toast =
+                  Toast.makeText(
+                          getApplicationContext(), "Classifier could not be initialized", Toast.LENGTH_SHORT);
+          toast.show();
+          finish();
+        }
+      }
+      else try {
         detector = TensorFlowObjectDetectionAPIModel.create(
             getAssets(), TF_OD_API_MODEL_FILE, TF_OD_API_LABELS_FILE, TF_OD_API_INPUT_SIZE);
         cropSize = TF_OD_API_INPUT_SIZE;
