@@ -41,6 +41,7 @@ public class TensorFlowObjectDetectionAPIModel implements Classifier {
   private static final Logger LOGGER = new Logger();
   private final Logger logger = new Logger();
 
+
   // Only return this many results.
   private static final int MAX_RESULTS = 100;
 
@@ -195,6 +196,7 @@ public class TensorFlowObjectDetectionAPIModel implements Classifier {
           new Recognition("" + i, labels.get((int) outputClasses[i]), outputScores[i], detection));
       if(!labels.get((int) outputClasses[i]).equals("???")&&!labels.get((int) outputClasses[i]).equals("person")){
         logger.i("Label %s detected", labels.get((int) outputClasses[i]), outputScores[i], detection);
+
       }
     }
 

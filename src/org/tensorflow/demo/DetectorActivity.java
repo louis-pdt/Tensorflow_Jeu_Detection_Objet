@@ -94,7 +94,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   private static final float MINIMUM_CONFIDENCE_MULTIBOX = 0.1f;
   private static final float MINIMUM_CONFIDENCE_YOLO = 0.6f;
 
-  private static final boolean MAINTAIN_ASPECT = MODE == DetectorMode.YOLO;
+  private static final boolean MAINTAIN_ASPECT = MODE == DetectorMode.TF_OD_API;
 
   private static final Size DESIRED_PREVIEW_SIZE = new Size(640, 480);
 
