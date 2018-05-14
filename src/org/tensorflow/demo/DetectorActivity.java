@@ -87,7 +87,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   private enum DetectorMode {
     TF_OD_API, MULTIBOX, YOLO;
   }
-  private static final DetectorMode MODE = DetectorMode.YOLO;
+  private static final DetectorMode MODE = DetectorMode.TF_OD_API;
 
   // Minimum detection confidence to track a detection.
   private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.6f;
@@ -122,6 +122,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   private byte[] luminanceCopy;
 
   private BorderedText borderedText;
+  DetectionLabel Objets_detectes = new DetectionLabel();
   @Override
   public void onPreviewSizeChosen(final Size size, final int rotation) {
     final float textSizePx =
@@ -339,6 +340,13 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 if (result.title est dans notre liste de labels) :
                     valider l item correspondant (changer d affichage en bas )
                  */
+                LOGGER.i("Label %s detected", result.getTitle());
+                for(int j=0;j<Objets_detectes.getLabelsDetected().length;j++){
+                  if(Objets_detectes.getLabelsSearched()[j].equals(result.getTitle())){
+                    Objets_detectes.getLabelsDetected()[j]=true;
+                    LOGGER.i("Label à trouver numero %d detecte (il s'agit du label %s)",j+1,result.getTitle());
+                  }
+                }
                 canvas.drawRect(location, paint);
 
                 cropToFrameTransform.mapRect(location);

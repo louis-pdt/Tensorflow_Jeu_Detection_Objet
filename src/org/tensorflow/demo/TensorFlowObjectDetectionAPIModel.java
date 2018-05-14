@@ -194,10 +194,10 @@ public class TensorFlowObjectDetectionAPIModel implements Classifier {
               outputLocations[4 * i + 2] * inputSize);
       pq.add(
           new Recognition("" + i, labels.get((int) outputClasses[i]), outputScores[i], detection));
-      if(!labels.get((int) outputClasses[i]).equals("???")&&!labels.get((int) outputClasses[i]).equals("person")){
+     /* if(!labels.get((int) outputClasses[i]).equals("???")&&!labels.get((int) outputClasses[i]).equals("person")){
         logger.i("Label %s detected", labels.get((int) outputClasses[i]), outputScores[i], detection);
 
-      }
+      }*/
     }
 
     final ArrayList<Recognition> recognitions = new ArrayList<Recognition>();
