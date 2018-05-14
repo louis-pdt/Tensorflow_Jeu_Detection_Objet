@@ -35,5 +35,4 @@ xcuserdata/**
 .idea
 .pb
 *.iml
-local.properties
 gradleBuild
