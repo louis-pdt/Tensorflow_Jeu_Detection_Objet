@@ -1,0 +1,6 @@
+bottle
+car
+chair
+diningtable
+person
+tvmonitor

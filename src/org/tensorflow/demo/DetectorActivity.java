@@ -305,6 +305,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             LOGGER.i("Running detection on image " + currTimestamp);
             final long startTime = SystemClock.uptimeMillis();
             final List<Classifier.Recognition> results = detector.recognizeImage(croppedBitmap);
+            //c est ici que tout est detecte ! Important
             lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
 
             cropCopyBitmap = Bitmap.createBitmap(croppedBitmap);
@@ -333,6 +334,11 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             for (final Classifier.Recognition result : results) {
               final RectF location = result.getLocation();
               if (location != null && result.getConfidence() >= minimumConfidence) {
+                //c est ici que les rectangles sont dessines
+                /*
+                if (result.title est dans notre liste de labels) :
+                    valider l item correspondant (changer d affichage en bas )
+                 */
                 canvas.drawRect(location, paint);
 
                 cropToFrameTransform.mapRect(location);

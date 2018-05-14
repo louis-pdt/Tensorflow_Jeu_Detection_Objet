@@ -1,6 +1,7 @@
 .DS_Store
 .ipynb_checkpoints
 node_modules
+.properties
 /.bazelrc
 /.tf_configure.bazelrc
 /bazel-*
@@ -32,6 +33,7 @@ xcuserdata/**
 # Android
 .gradle
 .idea
+.pb
 *.iml
 local.properties
 gradleBuild
