@@ -21,8 +21,8 @@ import java.util.PriorityQueue;
 import java.util.Vector;
 
 public class DetectionLabel {
-  private String[] LabelsSearched = new String[4];
-  private boolean[] LabelsDetected = new boolean[4];
+  private String LabelsSearched[];
+  private Boolean LabelsDetected[];
 
   public DetectionLabel(String[] labelsSearched) {
 
@@ -30,11 +30,7 @@ public class DetectionLabel {
 
   }
 
-  public DetectionLabel(boolean[] labelsDetected) {
-    LabelsDetected = labelsDetected;
-  }
-
-  public void setLabelsDetected(boolean[] labelsDetected) {
+  public void setLabelsDetected(Boolean[] labelsDetected) {
 
     LabelsDetected = labelsDetected;
   }
@@ -48,12 +44,12 @@ public class DetectionLabel {
     LabelsSearched = labelsSearched;
   }
 
-  public boolean[] getLabelsDetected() {
+  public Boolean[] getLabelsDetected() {
     return LabelsDetected;
   }
 
-  public DetectionLabel(boolean[] labelsDetected, String[] labelsSearched) {
-    LabelsDetected = labelsDetected;
-    LabelsSearched = labelsSearched;
+  public DetectionLabel() {
+    LabelsDetected = new Boolean[]{false,false,false,false};
+    LabelsSearched = new String[]{"bottle","laptop","person","chair"};
   }
 }
