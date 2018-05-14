@@ -19,4 +19,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000"
-    tools:context="org.tensorflow.demo.CameraActivity" />
+    tools:context="org.tensorflow.demo.CameraActivity" >
+
+
+    <Button
+        android:id="@+id/quit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OBJECTS"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="10dp"
+        />
+
+</FrameLayout>
