@@ -9,7 +9,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="221dp"
-        android:text="MA NAME A JEFF"
+        android:text="Detection Game"
         android:textColor="#000448"
         android:textSize="40sp" />
 
