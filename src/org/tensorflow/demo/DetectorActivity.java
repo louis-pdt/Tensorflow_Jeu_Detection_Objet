@@ -32,6 +32,7 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.Surface;
 import android.widget.Toast;
+import android.os.Bundle;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -345,11 +346,19 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                   if(Objets_detectes.getLabelsSearched().get(j).equals(result.getTitle())){
                     LOGGER.i("Label à trouver numero %d detecte (il s'agit du label %s)",j+1,result.getTitle());
                     Objets_detectes.getLabelsSearched().remove(j);
-                    String nom_vue = String.valueOf(Objets_detectes.getLabelsSearched().size())+".xml";
-                    @Override
-                    public void onCreate(Bundle savedInstanceState){
-                        DetectorActivity.super.onCreate(savedInstanceState);
-                        setContentView(R.layout.nom_vue);
+                    /*@Override
+                    public void onCreate(Bundle savedInstanceState){*/
+                      DetectorActivity.super.onCreate(null);
+                      if (Objets_detectes.getLabelsSearched().size() == 3) {
+                        setContentView(R.layout.layout_3_objects);
+                      } else if (Objets_detectes.getLabelsSearched().size() == 2) {
+                        setContentView(R.layout.layout_2_objects);
+                      } else if (Objets_detectes.getLabelsSearched().size() == 1) {
+                        setContentView(R.layout.layout_1_objects);
+                      } else {
+                        //setContentView(R.layout.bravo);
+                      }
+                    //}
                   }
                 }
                 canvas.drawRect(location, paint);
