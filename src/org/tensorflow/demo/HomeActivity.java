@@ -50,14 +50,14 @@ public class HomeActivity extends Activity{
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,CameraActivity.class);
+                Intent intent = new Intent(context,DetectorActivity.class);
                 startActivity(intent);
             }
         });
         mButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,HomeActivity.class);
+                Intent intent = new Intent(context,RulesActivity.class);
                 startActivity(intent);
             }
         });
