@@ -65,7 +65,7 @@ public class HomeActivity extends Activity{
     }
 
     private void launchActivity(){
-        Intent i = new Intent(this, HomeActivity.class);
+        Intent i = new Intent(this, CameraActivity.class);
         startActivity(i);
     }
 }
