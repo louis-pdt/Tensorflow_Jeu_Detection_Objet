@@ -20,7 +20,7 @@
         android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="61dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:text="PLAY" />
 
     <Button
@@ -30,7 +30,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="65dp"
         android:layout_toStartOf="@+id/button1"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:text="HELP" />
 
     <Button
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/button2"
         android:layout_toEndOf="@+id/button1"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:text="QUIT" />
 
 </RelativeLayout>

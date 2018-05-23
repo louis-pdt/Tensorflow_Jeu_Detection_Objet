@@ -32,7 +32,8 @@ import org.tensorflow.demo.env.ImageUtils;
 import org.tensorflow.demo.env.Logger;
 import org.tensorflow.demo.R; // Explicit import needed for internal Google builds.
 
-public class HomeActivity extends Activity{   Button mButton1 = null;
+public class HomeActivity extends Activity{
+    Button mButton1 = null;
     Button mButton2 = null;
     Button mButton3 = null;
 
