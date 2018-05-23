@@ -31,6 +31,8 @@
         android:layout_weight="1"
 
         android:orientation="vertical">
+        <TextView
+            android:text="1"/>
 
     </LinearLayout>
 </LinearLayout>
