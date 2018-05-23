@@ -41,19 +41,24 @@ public class HomeActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+        addListenerOnButton();}
+    public void addListenerOnButton(){
+        final Context context = this;
         mButton1 = findViewById(R.id.button1);
         mButton2 = findViewById(R.id.button2);
         mButton3 = findViewById(R.id.button3);
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchActivity();
+                Intent intent = new Intent(context,CameraActivity.class);
+                startActivity(intent);
             }
         });
         mButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchActivity();
+                Intent intent = new Intent(context,HomeActivity.class);
+                startActivity(intent);
             }
         });
         mButton3.setOnClickListener(new View.OnClickListener() {
@@ -64,10 +69,7 @@ public class HomeActivity extends Activity{
         });
     }
 
-    private void launchActivity(){
-        Intent i = new Intent(this, HomeActivity.class);
-        startActivity(i);
-    }
+   
 }
 
 
