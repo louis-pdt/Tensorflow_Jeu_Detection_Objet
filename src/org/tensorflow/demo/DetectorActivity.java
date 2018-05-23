@@ -341,10 +341,15 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                     valider l item correspondant (changer d affichage en bas )
                  */
                 LOGGER.i("Label %s detected", result.getTitle());
-                for(int j=0;j<Objets_detectes.getLabelsDetected().length;j++){
-                  if(Objets_detectes.getLabelsSearched()[j].equals(result.getTitle())){
-                    Objets_detectes.getLabelsDetected()[j]=true;
+                for(int j=0;j<Objets_detectes.getLabelsSearched().size();j++){
+                  if(Objets_detectes.getLabelsSearched().get(j).equals(result.getTitle())){
                     LOGGER.i("Label à trouver numero %d detecte (il s'agit du label %s)",j+1,result.getTitle());
+                    Objets_detectes.getLabelsSearched().remove(j);
+                    String nom_vue = String.valueOf(Objets_detectes.getLabelsSearched().size())+".xml";
+                    @Override
+                    public void onCreate(Bundle savedInstanceState){
+                        DetectorActivity.super.onCreate(savedInstanceState);
+                        setContentView(R.layout.nom_vue);
                   }
                 }
                 canvas.drawRect(location, paint);
