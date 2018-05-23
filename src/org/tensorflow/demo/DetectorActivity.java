@@ -34,6 +34,7 @@ import android.view.Surface;
 import android.widget.Toast;
 import android.os.Bundle;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
@@ -342,18 +343,24 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                     valider l item correspondant (changer d affichage en bas )
                  */
                 LOGGER.i("Label %s detected", result.getTitle());
-                for(int j=0;j<Objets_detectes.getLabelsSearched().size();j++){
-                  if(Objets_detectes.getLabelsSearched().get(j).equals(result.getTitle())){
+                //List<String> mesObjets = Objets_detectes.getLabelsSearched();
+                List<String> mesObjets = new ArrayList<>();
+                mesObjets.add("bottle");
+                mesObjets.add("laptop");
+                mesObjets.add("person");
+                mesObjets.add("chair");
+                for(int j=0;j<mesObjets.size();j++){
+                  if(mesObjets.get(j).equals(result.getTitle())){
                     LOGGER.i("Label à trouver numero %d detecte (il s'agit du label %s)",j+1,result.getTitle());
-                    Objets_detectes.getLabelsSearched().remove(j);
+                    mesObjets.remove(j);
                     /*@Override
                     public void onCreate(Bundle savedInstanceState){*/
                       DetectorActivity.super.onCreate(null);
-                      if (Objets_detectes.getLabelsSearched().size() == 3) {
+                      if (mesObjets.size() == 3) {
                         setContentView(R.layout.layout_3_objects);
-                      } else if (Objets_detectes.getLabelsSearched().size() == 2) {
+                      } else if (mesObjets.size() == 2) {
                         setContentView(R.layout.layout_2_objects);
-                      } else if (Objets_detectes.getLabelsSearched().size() == 1) {
+                      } else if (mesObjets.size() == 1) {
                         setContentView(R.layout.layout_1_objects);
                       } else {
                         //setContentView(R.layout.bravo);

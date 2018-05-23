@@ -14,7 +14,8 @@
  limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="3">
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -43,7 +44,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" >
                 <TextView
-                    android:text="bouteille"/>
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:text="bouteille"
+                    android:textSize="40dp"/>
 
             </LinearLayout>
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -51,6 +55,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
                 <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:textSize="40dp"
                     android:text="ordinateur"/>
             </LinearLayout>
 
@@ -67,6 +74,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
                 <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:textSize="40dp"
                     android:text="personne"/>
             </LinearLayout>
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -74,6 +84,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
                 <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:textSize="40dp"
                     android:text="chaise"/>
             </LinearLayout>
         </LinearLayout>
