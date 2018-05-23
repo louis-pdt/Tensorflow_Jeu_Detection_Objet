@@ -44,6 +44,7 @@ import org.tensorflow.demo.env.ImageUtils;
 import org.tensorflow.demo.env.Logger;
 import org.tensorflow.demo.tracking.MultiBoxTracker;
 import org.tensorflow.demo.R; // Explicit import needed for internal Google builds.
+import android.content.Intent;
 
 /**
  * An activity that uses a TensorFlowMultiBoxDetector and ObjectTracker to detect and then track
@@ -359,12 +360,20 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                      /*@Override
                                      public void onCreate(Bundle savedInstanceState){*/
                                       DetectorActivity.super.onCreate(null);
+
+
                                       if (mesObjets.size() == 3) {
                                         setContentView(R.layout.layout_3_objects);
+                                        Intent intentMyAccount = new Intent(getApplicationContext(), DetectorActivity.class);
+                                        startActivity(intentMyAccount);
                                       } else if (mesObjets.size() == 2) {
                                         setContentView(R.layout.layout_2_objects);
+                                        Intent intentMyAccount = new Intent(getApplicationContext(), DetectorActivity.class);
+                                        startActivity(intentMyAccount);
                                       } else if (mesObjets.size() == 1) {
                                         setContentView(R.layout.layout_1_objects);
+                                        Intent intentMyAccount = new Intent(getApplicationContext(), DetectorActivity.class);
+                                        startActivity(intentMyAccount);
                                       } else {
                                         setContentView(R.layout.bravo);
                                       }
