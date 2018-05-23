@@ -344,30 +344,35 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                  */
                 LOGGER.i("Label %s detected", result.getTitle());
                 //List<String> mesObjets = Objets_detectes.getLabelsSearched();
-                List<String> mesObjets = new ArrayList<>();
+                final List<String> mesObjets = new ArrayList<>();
                 mesObjets.add("bottle");
                 mesObjets.add("laptop");
                 mesObjets.add("person");
                 mesObjets.add("chair");
-                for(int j=0;j<mesObjets.size();j++){
-                  if(mesObjets.get(j).equals(result.getTitle())){
-                    LOGGER.i("Label à trouver numero %d detecte (il s'agit du label %s)",j+1,result.getTitle());
-                    mesObjets.remove(j);
-                    /*@Override
-                    public void onCreate(Bundle savedInstanceState){*/
-                      DetectorActivity.super.onCreate(null);
-                      if (mesObjets.size() == 3) {
-                        setContentView(R.layout.layout_3_objects);
-                      } else if (mesObjets.size() == 2) {
-                        setContentView(R.layout.layout_2_objects);
-                      } else if (mesObjets.size() == 1) {
-                        setContentView(R.layout.layout_1_objects);
-                      } else {
-                        //setContentView(R.layout.bravo);
-                      }
-                    //}
-                  }
-                }
+                runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                  for (int j = 0; j < mesObjets.size(); j++) {
+                                    if (mesObjets.get(j).equals(result.getTitle())) {
+                                      LOGGER.i("Label à trouver numero %d detecte (il s'agit du label %s)", j + 1, result.getTitle());
+                                      mesObjets.remove(j);
+                                     /*@Override
+                                     public void onCreate(Bundle savedInstanceState){*/
+                                      DetectorActivity.super.onCreate(null);
+                                      if (mesObjets.size() == 3) {
+                                        setContentView(R.layout.layout_3_objects);
+                                      } else if (mesObjets.size() == 2) {
+                                        setContentView(R.layout.layout_2_objects);
+                                      } else if (mesObjets.size() == 1) {
+                                        setContentView(R.layout.layout_1_objects);
+                                      } else {
+                                        setContentView(R.layout.bravo);
+                                      }
+                                    }
+                                  }
+                                }
+                });
+
                 canvas.drawRect(location, paint);
 
                 cropToFrameTransform.mapRect(location);
