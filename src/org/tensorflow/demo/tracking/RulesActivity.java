@@ -1,4 +1,4 @@
-package org.tensorflow.demo;
+package org.tensorflow.demo.tracking;
 
 import android.Manifest;
 import android.app.Activity;
@@ -28,48 +28,31 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 import java.nio.ByteBuffer;
+
+import org.tensorflow.demo.HomeActivity;
 import org.tensorflow.demo.env.ImageUtils;
 import org.tensorflow.demo.env.Logger;
 import org.tensorflow.demo.R; // Explicit import needed for internal Google builds.
 
-public class HomeActivity extends Activity{
+public class RulesActivity extends Activity {
     Button mButton1 = null;
-    Button mButton2 = null;
-    Button mButton3 = null;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home);
-        addListenerOnButton();}
-    public void addListenerOnButton(){
+        setContentView(R.layout.rules);
+        addListenerOnButton();
+    }
+
+    public void addListenerOnButton() {
         final Context context = this;
-        mButton1 = findViewById(R.id.button1);
-        mButton2 = findViewById(R.id.button2);
-        mButton3 = findViewById(R.id.button3);
+        mButton1 = findViewById(R.id.back);
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,CameraActivity.class);
+                Intent intent = new Intent(context, HomeActivity.class);
                 startActivity(intent);
-            }
-        });
-        mButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context,HomeActivity.class);
-                startActivity(intent);
-            }
-        });
-        mButton3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
     }
-
-
 }
-
-
