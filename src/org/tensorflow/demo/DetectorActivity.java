@@ -23,10 +23,12 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.SystemClock;
+import android.util.DisplayMetrics;
 import android.util.Size;
 import android.util.TypedValue;
 import android.view.Display;
@@ -350,6 +352,22 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 mesObjets.add("laptop");
                 mesObjets.add("person");
                 mesObjets.add("chair");
+
+                DisplayMetrics metrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+                //Bitmap maB = Bitmap.createBitmap(metrics.widthPixels, (int)(metrics.heightPixels/3), Bitmap.Config.RGB_565 );
+
+                Canvas monCan = new Canvas(croppedBitmap);
+                final Paint rouge = new Paint();
+                rouge.setColor(Color.RED);
+
+                Rect monR = new Rect(0, 0, monCan.getWidth(), monCan.getHeight());
+                canvas.drawRect(monR, rouge);
+                final Paint vert = new Paint();
+                vert.setColor(Color.GREEN);
+
+/*
                 runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -358,21 +376,21 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                       LOGGER.i("Label à trouver numero %d detecte (il s'agit du label %s)", j + 1, result.getTitle());
                                       mesObjets.remove(j);
                                      /*@Override
-                                     public void onCreate(Bundle savedInstanceState){*/
+                                     public void onCreate(Bundle savedInstanceState){
                                       DetectorActivity.super.onCreate(null);
 
 
                                       if (mesObjets.size() == 3) {
                                         setContentView(R.layout.layout_3_objects);
-                                        Intent intentMyAccount = new Intent(getApplicationContext(), DetectorActivity.class);
+                                        Intent intentMyAccount = new Intent(getApplicationContext(), CameraActivity.class);
                                         startActivity(intentMyAccount);
                                       } else if (mesObjets.size() == 2) {
                                         setContentView(R.layout.layout_2_objects);
-                                        Intent intentMyAccount = new Intent(getApplicationContext(), DetectorActivity.class);
+                                        Intent intentMyAccount = new Intent(getApplicationContext(), CameraActivity.class);
                                         startActivity(intentMyAccount);
                                       } else if (mesObjets.size() == 1) {
                                         setContentView(R.layout.layout_1_objects);
-                                        Intent intentMyAccount = new Intent(getApplicationContext(), DetectorActivity.class);
+                                        Intent intentMyAccount = new Intent(getApplicationContext(), CameraActivity.class);
                                         startActivity(intentMyAccount);
                                       } else {
                                         setContentView(R.layout.bravo);
@@ -380,7 +398,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                     }
                                   }
                                 }
-                });
+                });*/
 
                 canvas.drawRect(location, paint);
 
