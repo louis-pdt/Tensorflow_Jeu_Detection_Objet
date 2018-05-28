@@ -331,26 +331,20 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
             final List<Classifier.Recognition> mappedRecognitions =
                 new LinkedList<Classifier.Recognition>();
-            List<Classifier.Recognition> results2 = new ArrayList<>();
+
+            if (resultsView == null) {
+              resultsView = (ResultsView) findViewById(R.id.results);
+              resultsView.setMesObjets();
+            }
+            resultsView.setResults(results);
 
             for (final Classifier.Recognition result : results) {
               final RectF location = result.getLocation();
               if (location != null && result.getConfidence() >= minimumConfidence) {
 
-
                 LOGGER.i("Label %s detected", result.getTitle());
-
                 LOGGER.i("Label à trouver numero %d detecte (il s'agit du label %s)", 1, result.getTitle());
-                if (resultsView == null) {
-                  resultsView = (ResultsView) findViewById(R.id.results);
-                  resultsView.setMesObjets();
-                }
-                resultsView.setResults(results);
-                /*setContentView(R.layout.activity_camera);
-                 TextView Objet = (TextView) findViewById(R.id.Objet);
-                 Objet.setText(monObjet);
-                 Intent intentMyAccount = new Intent(getApplicationContext(), DetectorActivity.class);
-                 startActivity(intentMyAccount);*/
+
                 canvas.drawRect(location, paint);
 
                 cropToFrameTransform.mapRect(location);
@@ -358,12 +352,19 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 mappedRecognitions.add(result);
               }
             }
-
+            int compteur = 0;
+            for (int var : resultsView.getObjetsDetecte()){
+              compteur += var;
+              if (compteur == 0){
+                setContentView(R.layout.bravo);
+              }
+            }
             tracker.trackResults(mappedRecognitions, luminanceCopy, currTimestamp);
             trackingOverlay.postInvalidate();
 
             requestRender();
             computingDetection = false;
+
           }
         });
   }
