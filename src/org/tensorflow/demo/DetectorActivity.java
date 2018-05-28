@@ -389,9 +389,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                     if (mesObjets.size() == 0){
                                       //end activity, genre message de fin, ou autre
                                     }
-                                    setContentView(R.layout.layout_1_objects);
-                                    TextView textView = (TextView) findViewById(R.id.monObjet);
-                                    textView.setText(monObjet);
+                                    setContentView(R.layout.activity_camera);
+                                    TextView Objet = (TextView) findViewById(R.id.Objet);
+                                    Objet.setText(monObjet);
                                     Intent intentMyAccount = new Intent(getApplicationContext(), DetectorActivity.class);
                                     startActivity(intentMyAccount);
                                   }

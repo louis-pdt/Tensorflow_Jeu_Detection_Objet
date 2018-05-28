@@ -13,6 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -30,65 +31,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:weightSum="2"
         android:orientation="vertical">
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="horizontal"
+        <TextView
+            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:weightSum="2">
-
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" >
-                <TextView
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:text="bouteille"
-                    android:textSize="40dp"/>
-
-            </LinearLayout>
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-                <TextView
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:textSize="40dp"
-                    android:text="ordinateur"/>
-            </LinearLayout>
-
-        </LinearLayout>
-        <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:weightSum="2">
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-                <TextView
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:textSize="40dp"
-                    android:text="personne"/>
-            </LinearLayout>
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-                <TextView
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:textSize="40dp"
-                    android:text="chaise"/>
-            </LinearLayout>
-        </LinearLayout>
+            android:id="@+id/Objet"
+            android:textSize="40dp"/>
     </LinearLayout>
 </LinearLayout>
