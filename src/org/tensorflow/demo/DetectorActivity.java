@@ -31,6 +31,7 @@ import android.util.Size;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Surface;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Bundle;
 import java.io.IOException;
@@ -353,12 +354,13 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                  /*
                                   for (int j = 0; j < mesObjets.size(); j++) {
                                     if (mesObjets.get(j).equals(result.getTitle())) {
                                       LOGGER.i("Label à trouver numero %d detecte (il s'agit du label %s)", j + 1, result.getTitle());
                                       mesObjets.remove(j);
-                                     /*@Override
-                                     public void onCreate(Bundle savedInstanceState){*/
+                                     @Override
+                                     public void onCreate(Bundle savedInstanceState){
                                       DetectorActivity.super.onCreate(null);
 
 
@@ -378,6 +380,20 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                         setContentView(R.layout.bravo);
                                       }
                                     }
+                                  }*/
+                                  String monObjet = mesObjets.get(0);
+                                  if (monObjet.equals(result.getTitle())){
+                                    LOGGER.i("Label à trouver numero %d detecte (il s'agit du label %s)", 1, result.getTitle());
+                                    mesObjets.remove(0);
+
+                                    if (mesObjets.size() == 0){
+                                      //end activity, genre message de fin, ou autre
+                                    }
+                                    setContentView(R.layout.layout_1_objects);
+                                    TextView textView = (TextView) findViewById(R.id.monObjet);
+                                    textView.setText(monObjet);
+                                    Intent intentMyAccount = new Intent(getApplicationContext(), DetectorActivity.class);
+                                    startActivity(intentMyAccount);
                                   }
                                 }
                 });
