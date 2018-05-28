@@ -21,4 +21,6 @@ import java.util.List;
 
 public interface ResultsView {
   public void setResults(final List<Recognition> results);
+  public void setMesObjets(List<String> mesObjets);
+  public void setMesObjets();
 }

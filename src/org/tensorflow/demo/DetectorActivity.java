@@ -70,7 +70,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
       "file:///android_asset/ssd_mobilenet_v1_android_export.pb";
   private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/coco_labels_list.txt";
 
-  private boolean louis = false;
+
 
   private static final String TF_OD_API_MODEL_FILE_L = "file:///android_asset/frozen_inference_graph_faster_rcnn.pb";
   private static final String TF_OD_API_LABELS_FILE_L = "file:///android_asset/coco_labels_list_rcnn.txt";
@@ -127,6 +127,16 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
   private BorderedText borderedText;
   DetectionLabel Objets_detectes = new DetectionLabel();
+
+  private ResultsView resultsView;
+
+  private List<String> mesObjets = new ArrayList<>();
+  /*mesObjets.add("bottle");
+  mesObjets.add("laptop");
+  mesObjets.add("person");
+  mesObjets.add("chair");*/
+
+
   @Override
   public void onPreviewSizeChosen(final Size size, final int rotation) {
     final float textSizePx =
@@ -140,50 +150,36 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     int cropSize = TF_OD_API_INPUT_SIZE;
     if (MODE == DetectorMode.YOLO) {
       detector =
-          TensorFlowYoloDetector.create(
-              getAssets(),
-              YOLO_MODEL_FILE,
-              YOLO_INPUT_SIZE,
-              YOLO_INPUT_NAME,
-              YOLO_OUTPUT_NAMES,
-              YOLO_BLOCK_SIZE);
+              TensorFlowYoloDetector.create(
+                      getAssets(),
+                      YOLO_MODEL_FILE,
+                      YOLO_INPUT_SIZE,
+                      YOLO_INPUT_NAME,
+                      YOLO_OUTPUT_NAMES,
+                      YOLO_BLOCK_SIZE);
       cropSize = YOLO_INPUT_SIZE;
     } else if (MODE == DetectorMode.MULTIBOX) {
       detector =
-          TensorFlowMultiBoxDetector.create(
-              getAssets(),
-              MB_MODEL_FILE,
-              MB_LOCATION_FILE,
-              MB_IMAGE_MEAN,
-              MB_IMAGE_STD,
-              MB_INPUT_NAME,
-              MB_OUTPUT_LOCATIONS_NAME,
-              MB_OUTPUT_SCORES_NAME);
+              TensorFlowMultiBoxDetector.create(
+                      getAssets(),
+                      MB_MODEL_FILE,
+                      MB_LOCATION_FILE,
+                      MB_IMAGE_MEAN,
+                      MB_IMAGE_STD,
+                      MB_INPUT_NAME,
+                      MB_OUTPUT_LOCATIONS_NAME,
+                      MB_OUTPUT_SCORES_NAME);
       cropSize = MB_INPUT_SIZE;
     } else {
-      if (louis == true){
-        try {
-          detector = TensorFlowObjectDetectionAPIModel.create(
-                  getAssets(), TF_OD_API_MODEL_FILE_L, TF_OD_API_LABELS_FILE_L, TF_OD_API_INPUT_SIZE);
-          cropSize = TF_OD_API_INPUT_SIZE;
-        } catch (final IOException e) {
-          LOGGER.e("Exception initializing classifier!", e);
-          Toast toast =
-                  Toast.makeText(
-                          getApplicationContext(), "Classifier could not be initialized", Toast.LENGTH_SHORT);
-          toast.show();
-          finish();
-        }
-      }
-      else try {
+      try {
         detector = TensorFlowObjectDetectionAPIModel.create(
-            getAssets(), TF_OD_API_MODEL_FILE, TF_OD_API_LABELS_FILE, TF_OD_API_INPUT_SIZE);
+                getAssets(), TF_OD_API_MODEL_FILE, TF_OD_API_LABELS_FILE, TF_OD_API_INPUT_SIZE);
         cropSize = TF_OD_API_INPUT_SIZE;
       } catch (final IOException e) {
         LOGGER.e("Exception initializing classifier!", e);
         Toast toast =
-            Toast.makeText(
-                getApplicationContext(), "Classifier could not be initialized", Toast.LENGTH_SHORT);
+                Toast.makeText(
+                        getApplicationContext(), "Classifier could not be initialized", Toast.LENGTH_SHORT);
         toast.show();
         finish();
       }
@@ -335,76 +331,31 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
             final List<Classifier.Recognition> mappedRecognitions =
                 new LinkedList<Classifier.Recognition>();
+            List<Classifier.Recognition> results2 = new ArrayList<>();
 
             for (final Classifier.Recognition result : results) {
               final RectF location = result.getLocation();
               if (location != null && result.getConfidence() >= minimumConfidence) {
-                //c est ici que les rectangles sont dessines
-                /*
-                if (result.title est dans notre liste de labels) :
-                    valider l item correspondant (changer d affichage en bas )
-                 */
+
+
                 LOGGER.i("Label %s detected", result.getTitle());
-                //List<String> mesObjets = Objets_detectes.getLabelsSearched();
-                final List<String> mesObjets = new ArrayList<>();
-                mesObjets.add("bottle");
-                mesObjets.add("laptop");
-                mesObjets.add("person");
-                mesObjets.add("chair");
-                runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                  /*
-                                  for (int j = 0; j < mesObjets.size(); j++) {
-                                    if (mesObjets.get(j).equals(result.getTitle())) {
-                                      LOGGER.i("Label à trouver numero %d detecte (il s'agit du label %s)", j + 1, result.getTitle());
-                                      mesObjets.remove(j);
-                                     @Override
-                                     public void onCreate(Bundle savedInstanceState){
-                                      DetectorActivity.super.onCreate(null);
 
-
-                                      if (mesObjets.size() == 3) {
-                                        setContentView(R.layout.layout_3_objects);
-                                        Intent intentMyAccount = new Intent(getApplicationContext(), DetectorActivity.class);
-                                        startActivity(intentMyAccount);
-                                      } else if (mesObjets.size() == 2) {
-                                        setContentView(R.layout.layout_2_objects);
-                                        Intent intentMyAccount = new Intent(getApplicationContext(), DetectorActivity.class);
-                                        startActivity(intentMyAccount);
-                                      } else if (mesObjets.size() == 1) {
-                                        setContentView(R.layout.layout_1_objects);
-                                        Intent intentMyAccount = new Intent(getApplicationContext(), DetectorActivity.class);
-                                        startActivity(intentMyAccount);
-                                      } else {
-                                        setContentView(R.layout.bravo);
-                                      }
-                                    }
-                                  }*/
-                                  String monObjet = mesObjets.get(0);
-                                  if (monObjet.equals(result.getTitle())){
-                                    LOGGER.i("Label à trouver numero %d detecte (il s'agit du label %s)", 1, result.getTitle());
-                                    mesObjets.remove(0);
-
-                                    if (mesObjets.size() == 0){
-                                      //end activity, genre message de fin, ou autre
-                                    }
-                                    setContentView(R.layout.activity_camera);
-                                    TextView Objet = (TextView) findViewById(R.id.Objet);
-                                    Objet.setText(monObjet);
-                                    Intent intentMyAccount = new Intent(getApplicationContext(), DetectorActivity.class);
-                                    startActivity(intentMyAccount);
-                                  }
-                                }
-                });
-
+                LOGGER.i("Label à trouver numero %d detecte (il s'agit du label %s)", 1, result.getTitle());
+                if (resultsView == null) {
+                  resultsView = (ResultsView) findViewById(R.id.results);
+                  resultsView.setMesObjets();
+                }
+                resultsView.setResults(results);
+                /*setContentView(R.layout.activity_camera);
+                 TextView Objet = (TextView) findViewById(R.id.Objet);
+                 Objet.setText(monObjet);
+                 Intent intentMyAccount = new Intent(getApplicationContext(), DetectorActivity.class);
+                 startActivity(intentMyAccount);*/
                 canvas.drawRect(location, paint);
 
                 cropToFrameTransform.mapRect(location);
                 result.setLocation(location);
                 mappedRecognitions.add(result);
-
-
               }
             }
 

@@ -24,6 +24,7 @@ import android.view.View;
 
 import org.tensorflow.demo.Classifier.Recognition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecognitionScoreView extends View implements ResultsView {
@@ -32,6 +33,12 @@ public class RecognitionScoreView extends View implements ResultsView {
   private final float textSizePx;
   private final Paint fgPaint;
   private final Paint bgPaint;
+
+  private List<String> mesObjets = new ArrayList<>();
+  /*mesObjets.add("bottle");
+  mesObjets.add("laptop");
+  mesObjets.add("person");
+  mesObjets.add("chair");*/
 
   public RecognitionScoreView(final Context context, final AttributeSet set) {
     super(context, set);
@@ -48,8 +55,26 @@ public class RecognitionScoreView extends View implements ResultsView {
 
   @Override
   public void setResults(final List<Recognition> results) {
+    for (Classifier.Recognition result : results){
+      for(int i = 0 ; i < mesObjets.size(); i++) {
+        if (result.getTitle().equals(mesObjets.get(i))) {
+          this.results.add(result);
+          mesObjets.remove(i);
+        }
+      }
+    }
     this.results = results;
     postInvalidate();
+  }
+
+  public void setMesObjets(List<String> mesObjets){
+    this.mesObjets = mesObjets;
+  }
+  public void setMesObjets(){
+    this.mesObjets.add("bottle");
+    this.mesObjets.add("laptop");
+    this.mesObjets.add("person");
+    this.mesObjets.add("chair");
   }
 
   @Override
@@ -59,11 +84,18 @@ public class RecognitionScoreView extends View implements ResultsView {
 
     canvas.drawPaint(bgPaint);
 
+    if (mesObjets != null) {
+      for (String str : mesObjets) {
+        canvas.drawText(str, x, y, fgPaint);
+        y += fgPaint.getTextSize() * 1.5f;
+      }
+    }
+/*
     if (results != null) {
       for (final Recognition recog : results) {
         canvas.drawText(recog.getTitle() + ": " + recog.getConfidence(), x, y, fgPaint);
         y += fgPaint.getTextSize() * 1.5f;
       }
-    }
+    }*/
   }
 }
