@@ -23,4 +23,5 @@ public interface ResultsView {
   public void setResults(final List<Recognition> results);
   public void setMesObjets(List<String> mesObjets);
   public void setMesObjets();
+  public List<Integer> getObjetsDetecte();
 }

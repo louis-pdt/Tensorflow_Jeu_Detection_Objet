@@ -205,16 +205,20 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     frameToCropTransform.invert(cropToFrameTransform);
 
     trackingOverlay = (OverlayView) findViewById(R.id.tracking_overlay);
-    trackingOverlay.addCallback(
-        new DrawCallback() {
-          @Override
-          public void drawCallback(final Canvas canvas) {
-            tracker.draw(canvas);
-            if (isDebug()) {
-              tracker.drawDebug(canvas);
-            }
-          }
-        });
+    try {
+      trackingOverlay.addCallback(
+              new DrawCallback() {
+                @Override
+                public void drawCallback(final Canvas canvas) {
+                  tracker.draw(canvas);
+                  if (isDebug()) {
+                    tracker.drawDebug(canvas);
+                  }
+                }
+              });
+    } catch (NullPointerException e){
+      e.printStackTrace();
+    }
 
     addCallback(
         new DrawCallback() {
@@ -332,11 +336,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             final List<Classifier.Recognition> mappedRecognitions =
                 new LinkedList<Classifier.Recognition>();
 
-            if (resultsView == null) {
-              resultsView = (ResultsView) findViewById(R.id.results);
-              resultsView.setMesObjets();
-            }
-            resultsView.setResults(results);
+
 
             for (final Classifier.Recognition result : results) {
               final RectF location = result.getLocation();
@@ -345,6 +345,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 LOGGER.i("Label %s detected", result.getTitle());
                 LOGGER.i("Label à trouver numero %d detecte (il s'agit du label %s)", 1, result.getTitle());
 
+
+
                 canvas.drawRect(location, paint);
 
                 cropToFrameTransform.mapRect(location);
@@ -352,6 +354,14 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 mappedRecognitions.add(result);
               }
             }
+
+            if (resultsView == null) {
+              resultsView = (ResultsView) findViewById(R.id.results);
+              resultsView.setMesObjets();
+              LOGGER.i("mesObjets set");
+            }
+            resultsView.setResults(results);
+
             int compteur = 0;
             for (int var : resultsView.getObjetsDetecte()){
               compteur += var;

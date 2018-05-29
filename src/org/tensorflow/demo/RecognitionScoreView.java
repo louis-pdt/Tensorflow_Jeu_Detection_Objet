@@ -35,6 +35,7 @@ public class RecognitionScoreView extends View implements ResultsView {
   private final Paint bgPaint;
 
   private List<String> mesObjets = new ArrayList<>();
+  private List<Integer> mesObjetsDetecte = new ArrayList<>();
   /*mesObjets.add("bottle");
   mesObjets.add("laptop");
   mesObjets.add("person");
@@ -55,28 +56,43 @@ public class RecognitionScoreView extends View implements ResultsView {
 
   @Override
   public void setResults(final List<Recognition> results) {
-    for (Classifier.Recognition result : results){
-      for(int i = 0 ; i < mesObjets.size(); i++) {
-        if (result.getTitle().equals(mesObjets.get(i))) {
-          this.results.add(result);
-          mesObjets.remove(i);
-        }
+      this.results = new ArrayList<>();
+      for (Classifier.Recognition result : results){
+          for(int i = 0 ; i < mesObjets.size(); i++) {
+              if (this.mesObjetsDetecte != null){
+                  if (result.getTitle().equals(mesObjets.get(i))) {
+                      this.results.add(result);
+                      mesObjetsDetecte.set(i, 0);
+                  }
+              }
+          }
       }
-    }
-    this.results = results;
-    postInvalidate();
+      this.results = results;
+      postInvalidate();
   }
 
   public void setMesObjets(List<String> mesObjets){
     this.mesObjets = mesObjets;
+    for (String s : mesObjets){
+      mesObjetsDetecte.add(1);
+    }
   }
   public void setMesObjets(){
-    this.mesObjets.add("bottle");
-    this.mesObjets.add("laptop");
-    this.mesObjets.add("person");
-    this.mesObjets.add("chair");
+      this.mesObjets = new ArrayList<>();
+      this.mesObjetsDetecte = new ArrayList<>();
+      this.mesObjets.add("bottle");
+      this.mesObjetsDetecte.add(1);
+      this.mesObjets.add("laptop");
+      this.mesObjetsDetecte.add(1);
+      this.mesObjets.add("person");
+      this.mesObjetsDetecte.add(1);
+      this.mesObjets.add("chair");
+      this.mesObjetsDetecte.add(1);
   }
 
+  public List<Integer> getObjetsDetecte(){
+      return this.mesObjetsDetecte;
+  }
   @Override
   public void onDraw(final Canvas canvas) {
     final int x = 10;
@@ -84,10 +100,24 @@ public class RecognitionScoreView extends View implements ResultsView {
 
     canvas.drawPaint(bgPaint);
 
-    if (mesObjets != null) {
-      for (String str : mesObjets) {
-        canvas.drawText(str, x, y, fgPaint);
-        y += fgPaint.getTextSize() * 1.5f;
+
+    if (mesObjetsDetecte.size() == 4 && mesObjets.size() ==4) {
+      for (int i = 0; i < 3; i+=2) {
+        if (mesObjetsDetecte.get(i) == 0 && mesObjetsDetecte.get(i+1)==0) {//true
+          canvas.drawText(mesObjets.get(i) + " (ok)   "+ mesObjets.get(i+1) + " (ok)", x, y, fgPaint);
+          y += fgPaint.getTextSize() * 1.5f;
+        }
+        else if (mesObjetsDetecte.get(i) == 0 && mesObjetsDetecte.get(i+1)==1) {//true
+          canvas.drawText(mesObjets.get(i) + " (ok)   "+ mesObjets.get(i+1), x, y, fgPaint);
+          y += fgPaint.getTextSize() * 1.5f;
+        }
+        else if (mesObjetsDetecte.get(i) == 1 && mesObjetsDetecte.get(i+1)== 0) {//true
+          canvas.drawText(mesObjets.get(i) + "   "+ mesObjets.get(i+1) + " (ok)", x, y, fgPaint);
+          y += fgPaint.getTextSize() * 1.5f;
+        }
+        else{  canvas.drawText(mesObjets.get(i) + "   "+ mesObjets.get(i+1) , x, y, fgPaint);
+          y += fgPaint.getTextSize() * 1.5f;
+        }
       }
     }
 /*
