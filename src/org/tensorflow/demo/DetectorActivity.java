@@ -26,6 +26,7 @@ import android.graphics.Paint.Style;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Size;
 import android.util.TypedValue;
@@ -136,6 +137,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   mesObjets.add("person");
   mesObjets.add("chair");*/
 
+  final Handler myHandler = new Handler();
 
   @Override
   public void onPreviewSizeChosen(final Size size, final int rotation) {
@@ -366,7 +368,27 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             for (int var : resultsView.getObjetsDetecte()){
               compteur += var;
               if (compteur == 0){
-                setContentView(R.layout.bravo);
+                  myHandler.post(new Runnable() {
+                      @Override
+                      public void run() {
+                          setContentView(R.layout.bravo);
+                      }
+                  });
+                  try {
+                      Thread.sleep(3000);
+                  }catch (InterruptedException e){
+                      Thread.currentThread().interrupted() ;
+                  }
+
+                  myHandler.post(new Runnable() {
+                      @Override
+                      public void run() {
+                        Intent intent = new Intent(getBaseContext(),HomeActivity.class);
+                        startActivity(intent);
+                      }
+                  });
+                Thread.currentThread().interrupt() ;
+
               }
             }
             tracker.trackResults(mappedRecognitions, luminanceCopy, currTimestamp);
