@@ -365,32 +365,30 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             resultsView.setResults(results);
 
             int compteur = 0;
-            for (int var : resultsView.getObjetsDetecte()){
-              compteur += var;
-              if (compteur == 0){
-                  myHandler.post(new Runnable() {
-                      @Override
-                      public void run() {
-                          setContentView(R.layout.bravo);
-                      }
-                  });
-                  try {
-                      Thread.sleep(3000);
-                  }catch (InterruptedException e){
-                      Thread.currentThread().interrupted() ;
+            for (int var : resultsView.getObjetsDetecte()){ compteur += var;}
+            if (compteur == 0){
+              myHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                  setContentView(R.layout.bravo);
                   }
+              });
+              try {
+                Thread.sleep(3000);
+                }catch (InterruptedException e){
+                Thread.currentThread().interrupted() ;
+                }
 
-                  myHandler.post(new Runnable() {
-                      @Override
-                      public void run() {
-                        Intent intent = new Intent(getBaseContext(),HomeActivity.class);
-                        startActivity(intent);
-                      }
-                  });
-                Thread.currentThread().interrupt() ;
-
-              }
+                myHandler.post(new Runnable() {
+                  @Override
+                  public void run() {
+                    Intent intent = new Intent(getBaseContext(),HomeActivity.class);
+                    startActivity(intent);
+                    }
+                });
+              Thread.currentThread().interrupt() ;
             }
+
             tracker.trackResults(mappedRecognitions, luminanceCopy, currTimestamp);
             trackingOverlay.postInvalidate();
 
