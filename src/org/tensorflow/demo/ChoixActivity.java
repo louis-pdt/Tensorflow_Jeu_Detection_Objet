@@ -29,6 +29,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 import java.nio.ByteBuffer;
+import java.util.List;
+
 import org.tensorflow.demo.env.ImageUtils;
 import org.tensorflow.demo.env.Logger;
 import org.tensorflow.demo.R; // Explicit import needed for internal Google builds.
@@ -37,6 +39,8 @@ public class ChoixActivity extends Activity {
     Button mButton1 = null;
     Button mButton2 = null;
     Button mButton3 = null;
+    List<Integer> valeursDetectees = BlackJackActivity.getValeursDetectees();
+    String choix = BlackJackActivity.ChoixConseil(BlackJackActivity.sommeMain(valeursDetectees),BlackJackActivity.carteDealer);
 
     @Override
     protected void onCreate(Bundle savedInstanceState){

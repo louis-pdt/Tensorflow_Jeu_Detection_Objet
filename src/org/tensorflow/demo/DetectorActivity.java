@@ -16,6 +16,7 @@
 
 package org.tensorflow.demo;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -47,7 +48,7 @@ import org.tensorflow.demo.env.Logger;
 import org.tensorflow.demo.tracking.MultiBoxTracker;
 import org.tensorflow.demo.R; // Explicit import needed for internal Google builds.
 import android.content.Intent;
-
+import org.tensorflow.demo.BlackJackActivity;
 /**
  * An activity that uses a TensorFlowMultiBoxDetector and ObjectTracker to detect and then track
  * objects.
@@ -412,5 +413,22 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   @Override
   public void onSetDebug(final boolean debug) {
     detector.enableStatLogging(debug);
+  }
+
+
+  final Context context = this;
+  public void setListenerOnResult(){
+    final Context context = this;
+    List<Integer> valeursDetectees = BlackJackActivity.getValeursDetectees();
+    if (resultsView != null){
+      if (valeursDetectees.size()<3) {
+        Intent intent = new Intent(context, ConfirmationActivity.class);
+        startActivity(intent);
+      }
+      else {
+        Intent intent = new Intent(context, ChoixActivity.class);
+        startActivity(intent);
+      }
+    }
   }
 }

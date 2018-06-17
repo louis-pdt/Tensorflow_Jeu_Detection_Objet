@@ -1,5 +1,6 @@
 package org.tensorflow.demo;
 
+import android.app.Activity;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Fragment;
@@ -32,44 +33,22 @@ import org.tensorflow.demo.env.ImageUtils;
 import org.tensorflow.demo.env.Logger;
 import org.tensorflow.demo.R; // Explicit import needed for internal Google builds.
 
-public class HomeActivity extends Activity{
-    Button mButton1 = null;
-    Button mButton2 = null;
-    Button mButton3 = null;
 
+public class DealerActivity extends Activity {
+    Button mButton1 = null;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home);
+        setContentView(R.layout.dealer);
         addListenerOnButton();}
     public void addListenerOnButton(){
         final Context context = this;
-        mButton1 = findViewById(R.id.button1);
-        mButton2 = findViewById(R.id.button2);
-        mButton3 = findViewById(R.id.button3);
+        mButton1 = findViewById(R.id.ok);
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,DealerActivity.class);
+                Intent intent = new Intent(context,DetectorActivity.class);
                 startActivity(intent);
             }
         });
-        mButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context,RulesActivity.class);
-                startActivity(intent);
-            }
-        });
-        mButton3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
-
-
 }
-
-

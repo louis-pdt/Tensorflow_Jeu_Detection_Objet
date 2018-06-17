@@ -26,6 +26,7 @@ import org.tensorflow.demo.Classifier.Recognition;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.tensorflow.demo.BlackJackActivity;
 
 public class RecognitionScoreView extends View implements ResultsView {
   private static final float TEXT_SIZE_DIP = 24;
@@ -36,6 +37,7 @@ public class RecognitionScoreView extends View implements ResultsView {
 
   private List<String> mesObjets = new ArrayList<>();
   private List<Integer> mesObjetsDetecte = new ArrayList<>();
+  List<Integer> valeursDetectees = BlackJackActivity.getValeursDetectees();
   /*mesObjets.add("bottle");
   mesObjets.add("laptop");
   mesObjets.add("person");
@@ -62,6 +64,19 @@ public class RecognitionScoreView extends View implements ResultsView {
               if (this.mesObjetsDetecte != null){
                   if (result.getTitle().equals(mesObjets.get(i))) {
                       this.results.add(result);
+                      switch (mesObjets.get(i)) {
+                          case "Valeur(1/11)" : valeursDetectees.add(11);
+                          case "Valeur(2)" : valeursDetectees.add(2);
+                          case "Valeur(3)" : valeursDetectees.add(3);
+                          case "Valeur(4)" : valeursDetectees.add(4);
+                          case "Valeur(5)" : valeursDetectees.add(5);
+                          case "Valeur(6)" : valeursDetectees.add(6);
+                          case "Valeur(7)" : valeursDetectees.add(7);
+                          case "Valeur(8)" : valeursDetectees.add(8);
+                          case "Valeur(9)" : valeursDetectees.add(9);
+                          case "Valeur(10)" : valeursDetectees.add(10);
+                          default:System.out.println("valeur erronée");
+                      }
                       mesObjetsDetecte.set(i, 0);
                   }
               }
@@ -80,106 +95,33 @@ public class RecognitionScoreView extends View implements ResultsView {
   public void setMesObjets(){
       this.mesObjets = new ArrayList<>();
       this.mesObjetsDetecte = new ArrayList<>();
-      this.mesObjets.add("bottle");
+      this.mesObjets.add("Valeur(1/11)");
       this.mesObjetsDetecte.add(1);
-      this.mesObjets.add("laptop");
+      this.mesObjets.add("Valeur(2)");
       this.mesObjetsDetecte.add(1);
-      this.mesObjets.add("person");
+      this.mesObjets.add("Valeur(3)");
       this.mesObjetsDetecte.add(1);
-      this.mesObjets.add("chair");
+      this.mesObjets.add("Valeur(4)");
+      this.mesObjetsDetecte.add(1);
+      this.mesObjets.add("Valeur(5)");
+      this.mesObjetsDetecte.add(1);
+      this.mesObjets.add("Valeur(6)");
+      this.mesObjetsDetecte.add(1);
+      this.mesObjets.add("Valeur(7)");
+      this.mesObjetsDetecte.add(1);
+      this.mesObjets.add("Valeur(8)");
+      this.mesObjetsDetecte.add(1);
+      this.mesObjets.add("Valeur(9)");
+      this.mesObjetsDetecte.add(1);
+      this.mesObjets.add("Valeur(10)");
       this.mesObjetsDetecte.add(1);
   }
 
-  public String ChoixConseil( int S, int C){
-      String choix;
-      switch(S) {
-
-          case 3:
-          case 4:
-          case 5:
-          case 6:
-          case 7:
-          case 8:
-
-              choix="T";
-
-              break;
-
-          case 9:
-
-              if(C==2 || C>6){
-                  choix="T";
-              }
-              else{
-                  choix="D";
-              }
-
-              break;
-
-          case 10:
-
-              if(C>9){
-                  choix="T";
-              }
-              else{
-                  choix="D";
-              }
-
-              break;
-
-          case 11:
-
-              choix="D";
-
-              break;
-
-          case 12:
-
-              if(C<4 || C>6){
-                  choix="T";
-              }
-              else{
-                  choix="S";
-              }
-
-              break;
-
-          case 13:
-          case 14:
-          case 15:
-          case 16:
-
-              if(C>6){
-                  choix="T";
-              }
-              else{
-                  choix="S";
-              }
-
-              break;
-
-          case 17:
-          case 18:
-          case 19:
-          case 20:
-
-              choix="S";
-
-              break;
-
-          default:
-
-              System.out.println("Erreur : La somme de la main du joueur vaut 0 ou plus de 20 ou bien la carte du croupier n'est pas valide.");
-              return "ERROR";
-
-      }
-      return choix;
-  }
 
   public List<Integer> getObjetsDetecte(){
       return this.mesObjetsDetecte;
   }
-  @Override
+ /* @Override
   public void onDraw(final Canvas canvas) {
     final int x = 10;
     int y = (int) (fgPaint.getTextSize() * 1.5f);
@@ -213,5 +155,5 @@ public class RecognitionScoreView extends View implements ResultsView {
         y += fgPaint.getTextSize() * 1.5f;
       }
     }*/
-  }
+  //}
 }

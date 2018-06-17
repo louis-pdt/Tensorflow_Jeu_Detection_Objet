@@ -54,7 +54,7 @@ public class ConfirmationActivity extends Activity {
         mButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, RulesActivity.class);
+                Intent intent = new Intent(context, HomeActivity.class);
                 startActivity(intent);
             }
         });
